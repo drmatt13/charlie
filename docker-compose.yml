@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  app:
+    image: node:18-alpine
+    container_name: my-node-app
+    working_dir: /app
+    volumes:
+      - .:/app # Mount the current directory to /app in the container
+      - /app/node_modules # Avoid overwriting the node_modules directory
+    ports:
+      - "3000:3000"
+    command: sh -c "npm install && npm run dev" # Run npm install before starting the server
+    environment:
+      - NODE_ENV=development
+    stdin_open: true # Keep stdin open to allow interactive mode (useful for debugging)
+    tty: true # Allocate a pseudo-TTY (interactive terminal)
